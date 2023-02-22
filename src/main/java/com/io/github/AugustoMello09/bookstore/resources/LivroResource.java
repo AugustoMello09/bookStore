@@ -4,8 +4,11 @@ import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -22,6 +25,7 @@ import com.io.github.AugustoMello09.bookstore.domain.Livro;
 import com.io.github.AugustoMello09.bookstore.dto.LivroDTO;
 import com.io.github.AugustoMello09.bookstore.services.LivroService;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping(value = "/livros")
 public class LivroResource {
@@ -44,7 +48,7 @@ public class LivroResource {
 	
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<Livro> update(
-			@PathVariable Integer id,@RequestBody Livro obj){
+			@PathVariable Integer id,@Valid @RequestBody Livro obj){
 		Livro newObj = service.update(id, obj);
 		return ResponseEntity.ok().body(newObj);
 		
@@ -52,7 +56,7 @@ public class LivroResource {
 	
 	@PatchMapping(value = "/{id}")
 	public ResponseEntity<Livro> updatePath(
-			@PathVariable Integer id,@RequestBody Livro obj){
+			@PathVariable Integer id,@Valid @RequestBody Livro obj){
 		Livro newObj = service.update(id, obj);
 		return ResponseEntity.ok().body(newObj);
 		
